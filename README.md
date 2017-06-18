@@ -10,3 +10,9 @@ If you use this repository, please cite:
   school={University of California, Santa Cruz}
 }
 ```
+
+## Installation
+To install, download the repository and install using setup.py:
+```
+python setup.py install
+```
