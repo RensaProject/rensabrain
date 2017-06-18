@@ -1,4 +1,7 @@
-This is the base code for Rensa, a framework for encoding and adapting semantic data.
+# RensaBrain
+
+## Overview
+This is the base code for Rensa, a framework for encoding and adapting semantic data.  It's currently compatible with Python 2.7.10.
 
 If you use this repository, please cite:
 
@@ -16,3 +19,6 @@ To install, download the repository and install using setup.py:
 ```
 python setup.py install
 ```
+
+## Usage
+See the [rensapy](https://github.com/RensaProject/rensapy) repository for general usage instructions.
