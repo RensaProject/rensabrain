@@ -212,36 +212,43 @@ Helper for get_assertions_related_to() and get_assertions_related_to().
 '''
 def concept_in_assertion(k,a,prop,value,concept):
 	# If the value of that property is an array with at least one element
-	if value and isinstance(value,list):
-		# If the value of the current assertion's property contains concept,
-		if concept in value:
-			# Add this assertion and the property to the list.
-			return True
-		# For each element in the array,
-		for v in value:
-			# If the element is a dictionary,
-			if isinstance(v,dict):
-				# If any of that dictionary's values contain concept,
-				for prop2, value2 in v.iteritems():
-					if value2 and isinstance(value2,list):
-						if concept in value2:
-							# Add this assertion and the property to the list.
-							return True
-					# If the value of that property is a string,
-					elif isinstance(value2,basestring):
-						# If the value of the current assertion's property is concept,
-						if (value2==concept):
-							# Add this assertion and the property to the list.
-							return True
+	if isinstance(value,list):
+		if value:
+			# If the value of the current assertion's property contains concept,
+			if concept in value:
+				# Add this assertion and the property to the list.
+				return True
+			# For each element in the array,
+			for v in value:
+				# If the element is a dictionary,
+				if isinstance(v,dict):
+					# If any of that dictionary's values contain concept,
+					for prop2, value2 in v.iteritems():
+						if value2 and isinstance(value2,list):
+							if concept in value2:
+								# Add this assertion and the property to the list.
+								return True
+						# If the value of that property is a string,
+						elif isinstance(value2,basestring):
+							# If the value of the current assertion's property is concept,
+							if (value2==concept):
+								# Add this assertion and the property to the list.
+								return True
+			return False
 	# If the value of that property is a string,
 	elif isinstance(value,basestring):
 		# If the value of the current assertion's property is concept,
 		if (value==concept):
 			# Add this assertion and the property to the list.
 			return True
+	# If the value of that property is a dict,
+	elif isinstance(value,dict):
+		for pr, va in value.iteritems():
+			if (concept_in_assertion(k,a,pr,va,concept)):
+				return True
 	else:
 		if not isinstance(value,numbers.Number):
-			print "Warning: type of " + a[prop] + " is not string, list, or number."
+			print "Warning: type of " + a[prop] + " is not string, list, dictionary, or number."
 	return False
 
 '''
